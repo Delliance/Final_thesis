@@ -35,7 +35,10 @@ public class MailBox {
     )
     private long id;
 
-    @OneToOne
+//    TODO: verify that the bidirectional relation is done
+    @OneToOne(
+            mappedBy = "mailBox"
+    )
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -112,8 +112,24 @@ public class User implements UserDetails{
     )
     private UserRole userRole;
 
+    @OneToOne (
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(name = "mail_address_id")
+    private MailAddress mailAddress;
+
     private Boolean locked = false;
     private Boolean enabled =false;
+
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(name = "mail_box_id")
+    private MailBox mailBox;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -36,4 +36,7 @@ public class Message {
     @JoinColumn(name = "mail_box_id")
     private MailBox mailBox;
 
+
+
+
 }
