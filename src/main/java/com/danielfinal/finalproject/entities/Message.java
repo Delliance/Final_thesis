@@ -33,8 +33,16 @@ public class Message {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "mail_box_id")
-    private MailBox mailBox;
+    @JoinColumn(name = "to_id")
+    private MailBox receiver_main;
+
+    @ManyToOne
+    @JoinColumn(name = "cc_id")
+    private MailBox receiver_cc;
+
+    @ManyToOne
+    @JoinColumn(name = "bcc_id")
+    private MailBox receiver_bcc;
 
 
 

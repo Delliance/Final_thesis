@@ -38,8 +38,11 @@ public class MailAddress {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    private String firstName = user.getFirstName();
-//    private String lastName = user.getLastName();
-//    private String username = user.getUsername();
+    @ManyToOne
+    @JoinColumn (name = "message_sent_id")
+    private Message messageSent;
+
+
+
 
 }

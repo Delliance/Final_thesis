@@ -42,4 +42,6 @@ public class MailBox {
     @JoinColumn(name = "user_id")
     private User user;
 
+
+
 }
