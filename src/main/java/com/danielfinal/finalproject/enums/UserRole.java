@@ -1,4 +1,4 @@
-package com.danielfinal.finalproject.entities;
+package com.danielfinal.finalproject.enums;
 
 public enum UserRole {
 

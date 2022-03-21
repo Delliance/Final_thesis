@@ -33,9 +33,7 @@ public class Tag {
     private long id;
     private String name;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
+    @ManyToOne
     @JoinColumn(name = "message_id")
     private Message message;
 }

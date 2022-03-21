@@ -3,6 +3,7 @@ package com.danielfinal.finalproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @ToString
-@Entity (name = "Message")
+@Entity(name = "Message")
 @Table(
         name = "tbl_message"
 )
@@ -32,19 +33,48 @@ public class Message {
     )
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "to_id")
-    private MailBox receiver_main;
+    @Column(
+            name = "sender",
+            nullable = false
+    )
+    private String sender;
+
+    @Column(
+            name = "subject"
+    )
+    private String subject = "No subject";
+
+    @Column(
+            name = "body"
+    )
+    private String body = "empty message";
+
+    @Column(
+            name = "primary_receptor",
+            nullable = false
+    )
+    private String primaryReceptor;
+
+    @Column(
+            name = "carbon_copy"
+    )
+    private String carbonCopy;
+
+    @Column(
+            name = "blind_carbon_copy"
+    )
+    private String BlindCarbonCopy;
+
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    private List<Attachment> attachment;
+
+    @OneToMany
+    private List<Tag> tag;
 
     @ManyToOne
-    @JoinColumn(name = "cc_id")
-    private MailBox receiver_cc;
-
-    @ManyToOne
-    @JoinColumn(name = "bcc_id")
-    private MailBox receiver_bcc;
-
-
-
+    @JoinColumn(name = "mailbox_id")
+    private Mailbox mailbox;
 
 }

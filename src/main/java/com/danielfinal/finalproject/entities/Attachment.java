@@ -8,10 +8,10 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Attachment")
 @Table(
         name = "tbl_attachment"
@@ -42,4 +42,9 @@ public class Attachment {
     @JoinColumn(name = "message_id")
     private Message message;
 
+    public Attachment(String name, String type, byte[] data) {
+        this.name = name;
+        this.type = type;
+        this.data = data;
+    }
 }

@@ -1,5 +1,6 @@
 package com.danielfinal.finalproject.entities;
 
+import com.danielfinal.finalproject.enums.UserRole;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -112,24 +113,16 @@ public class User implements UserDetails{
     )
     private UserRole userRole;
 
-    @OneToOne (
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(name = "mail_address_id")
-    private MailAddress mailAddress;
-
     private Boolean locked = false;
     private Boolean enabled =false;
 
     @OneToOne(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             optional = false
     )
     @JoinColumn(name = "mail_box_id")
-    private MailBox mailBox;
+    private Mailbox mailBox;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

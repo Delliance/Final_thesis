@@ -1,11 +1,9 @@
 package com.danielfinal.finalproject.entities;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +15,7 @@ import java.util.Collection;
 @Table (
         name = "tbl_mail_box"
 )
-public class MailBox {
+public class Mailbox {
 
     @Id
     @SequenceGenerator(
@@ -42,6 +40,9 @@ public class MailBox {
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    @OneToMany (
+            fetch = FetchType.EAGER
+    )
+    private List<Message> message;
 
 }
