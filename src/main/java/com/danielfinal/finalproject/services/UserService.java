@@ -1,17 +1,32 @@
 package com.danielfinal.finalproject.services;
 
+import com.danielfinal.finalproject.entities.Mailbox;
 import com.danielfinal.finalproject.entities.User;
 import com.danielfinal.finalproject.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    private final static String USER_NOT_FOUND_MSG = "user with email %s not found";
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findUserByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username)));
+    }
 
     public boolean checkIfUserExistsByUsername (String username){
 
@@ -29,7 +44,7 @@ public class UserService {
 
     }
 
-    public void createNewUser (User user){
+    public String singUpUser (User user){
 
         if (checkIfUserExistsByUsername(user.getUsername())){
             throw new IllegalStateException("The username: "+user.getUsername()+" is already taken");
@@ -39,7 +54,15 @@ public class UserService {
             throw new IllegalStateException("The dni: "+user.getDni()+" is already already registered");
         }
 
+        String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
+        user.setPassword(encodedPassword);
+
+        user.setMailBox(new Mailbox());
+
         userRepository.save(user);
+
+        return "it works!!";
 
     }
 

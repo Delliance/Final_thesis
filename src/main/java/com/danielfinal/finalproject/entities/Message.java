@@ -63,15 +63,15 @@ public class Message {
     @Column(
             name = "blind_carbon_copy"
     )
-    private String BlindCarbonCopy;
+    private String blindCarbonCopy;
 
     @OneToMany(
             cascade = CascadeType.ALL
     )
     private List<Attachment> attachment;
 
-    @OneToMany
-    private List<Tag> tag;
+//    @OneToMany
+//    private List<Tag> tag;
 
     @ManyToOne
     @JoinColumn(name = "mailbox_id")

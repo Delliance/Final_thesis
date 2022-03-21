@@ -12,6 +12,7 @@ import java.util.Collections;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,6 +30,20 @@ import java.util.Collections;
         }
 )
 public class User implements UserDetails{
+
+    public User(String firstName, String lastName, String username, String password, String dni, String address, String zipCode, String city, String state, String country, UserRole userRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.dni = dni;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.userRole = userRole;
+    }
 
     @Id
     @SequenceGenerator(
@@ -113,8 +128,9 @@ public class User implements UserDetails{
     )
     private UserRole userRole;
 
+//    Leaving this by default, so any account created is enable, and not locked
     private Boolean locked = false;
-    private Boolean enabled =false;
+    private Boolean enabled = true;
 
     @OneToOne(
             cascade = CascadeType.ALL,

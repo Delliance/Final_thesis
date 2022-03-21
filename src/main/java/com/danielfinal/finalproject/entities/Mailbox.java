@@ -33,16 +33,15 @@ public class Mailbox {
     )
     private long id;
 
-//    TODO: verify that the bidirectional relation is done
     @OneToOne(
             mappedBy = "mailBox"
     )
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany (
-            fetch = FetchType.EAGER
-    )
-    private List<Message> message;
+//    @OneToMany (
+//            fetch = FetchType.EAGER
+//    )
+//    private List<Message> message;
 
 }
