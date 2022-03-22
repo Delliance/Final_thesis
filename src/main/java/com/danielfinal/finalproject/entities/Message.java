@@ -64,14 +64,16 @@ public class Message {
             name = "blind_carbon_copy"
     )
     private String blindCarbonCopy;
-
-    @OneToMany(
-            cascade = CascadeType.ALL
-    )
-    private List<Attachment> attachment;
+//
+//    @OneToMany(
+//            cascade = CascadeType.ALL
+//    )
+//    private List<Attachment> attachment;
 
 //    @OneToMany
 //    private List<Tag> tag;
+
+//    TODO: this is just for the sender, make multiple for all the receivers as well
 
     @ManyToOne
     @JoinColumn(name = "mailbox_id")

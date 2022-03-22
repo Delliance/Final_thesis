@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,20 @@ public class MessageService {
 
     private final UserService userService;
     private final MailboxService mailboxService;
-    private final AttachmentService attachmentService;
+
+    public boolean checkIfMessageExistsId (long messageId){
+        return messageRepository.findMessageById(messageId).isPresent();
+    }
+
+    public Message getMessageById (long messageId){
+        checkIfMessageExistsId(messageId);
+        return messageRepository.getMessageById(messageId);
+    }
+
+    public List<Message> getAllMessagesById (long messageId){
+        checkIfMessageExistsId(messageId);
+        return messageRepository.getMessagesById(messageId);
+    }
 
     public void sendMessage (Message message){
 
@@ -29,7 +43,17 @@ public class MessageService {
             throw new IllegalStateException("Receptor username does not exist");
         }
 
-//        TODO: conditional to check if the other receptors exist, if they are null, then don't
+        if (message.getCarbonCopy()!=null){
+            if(!userService.checkIfUserExistsByUsername(message.getCarbonCopy())){
+                throw new IllegalStateException("Carbon copy username does not exist");
+            }
+        }
+
+        if (message.getBlindCarbonCopy()!=null){
+            if(!userService.checkIfUserExistsByUsername(message.getBlindCarbonCopy())){
+                throw new IllegalStateException("Blind carbon copy username does not exist");
+            }
+        }
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -100,7 +124,7 @@ public class MessageService {
         }
 
 //        This is here for testing
-        username = "DGonzalez";
+//        username = "DGonzalez";
 
         userService.checkIfUserExistsByUsername(username);
 

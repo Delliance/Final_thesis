@@ -42,9 +42,11 @@ public class Attachment {
     @JoinColumn(name = "message_id")
     private Message message;
 
-    public Attachment(String name, String type, byte[] data) {
+    public Attachment(String name, String type, byte[] data, Message message) {
         this.name = name;
         this.type = type;
         this.data = data;
+        this.message = message;
     }
+
 }

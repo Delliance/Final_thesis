@@ -54,6 +54,8 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("The dni: "+user.getDni()+" is already already registered");
         }
 
+//        THESE ARE COMMENTED ONLY FOR TESTING
+
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 
         user.setPassword(encodedPassword);

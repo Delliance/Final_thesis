@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1*/registration/**")
+//                .antMatchers("/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
@@ -42,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider(){
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+
+//        COMMENT THIS NEXT LINE TO TEST WITHOUT ENCRYPTING PASSWORD
 
         provider.setPasswordEncoder(bCryptPasswordEncoder);
 

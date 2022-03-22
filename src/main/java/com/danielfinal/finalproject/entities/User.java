@@ -98,8 +98,7 @@ public class User implements UserDetails{
     private String address;
 
     @Column (
-            name = "zip_code",
-            nullable = false
+            name = "zip_code"
     )
     private String zipCode;
 
@@ -110,8 +109,7 @@ public class User implements UserDetails{
     private String city;
 
     @Column (
-            name = "state",
-            nullable = false
+            name = "state"
     )
     private String state;
 
