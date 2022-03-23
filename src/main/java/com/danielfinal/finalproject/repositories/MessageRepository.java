@@ -11,20 +11,20 @@ import java.util.Optional;
 @Repository
 public interface MessageRepository extends JpaRepository <Message, Long> {
 
-//    List<Message> getMessagesByMailbox (Mailbox mailbox);
+    List <Message> getMessagesByIdAndCarbonCopy (long id, String carbonCopy);
 
-    List<Message> getMessagesBySender (String sender);
+    List <Message> getMessagesByIdAndBlindCarbonCopy (long id, String blindCarbonCopy);
 
-    List<Message> getMessagesByPrimaryReceptor (String primaryReceptor);
-
-    List <Message> getMessagesByCarbonCopy (String carbonCopy);
-
-    List <Message> getMessagesByBlindCarbonCopy (String blindCarbonCopy);
-
-    List <Message> getMessagesById (long id);
+    List <Message> getMessagesByIdAndPrimaryReceptor (long id, String carbonCopy);
 
     Optional <Message> findMessageById (long id);
 
     Message getMessageById (long id);
+
+    List <Message> getMessagesBySenderMailboxId (long SenderMailboxId);
+
+    List <Message> getMessagesByPrimaryReceptorMailboxId (long primaryReceptorMailBoxId);
+
+    List <Message> getMessagesByBlindCarbonCopyMailboxId (long blindCarbonCopyMailBoxId);
 
 }

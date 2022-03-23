@@ -13,8 +13,6 @@ public interface MailboxRepository extends JpaRepository <Mailbox, Long> {
 
     Optional<Mailbox> findMailboxByUserUsername (String username);
 
-    Optional<Mailbox> findMailboxById (long id);
-
     Mailbox getMailboxByUserUsername (String username);
 
 }

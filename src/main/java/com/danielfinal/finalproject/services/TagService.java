@@ -17,7 +17,7 @@ public class TagService {
     private final MessageService messageService;
 
     public List<Message> getMessagesByTagName (String tagName){
-        return messageService.getAllMessagesById(tagRepository.getTagByName(tagName).getMessage().getId());
+        return messageService.getAllMessagesByIdAndCurrentUsername(tagRepository.getTagByName(tagName).getMessage().getId());
     }
 
     public void createNewTag (Tag tag) {

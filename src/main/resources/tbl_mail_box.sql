@@ -1,5 +1,5 @@
-insert into tbl_mail_box (mail_box_id) values (101);
-insert into tbl_mail_box (mail_box_id) values (2);
+insert into tbl_mail_box (mail_box_id) values (1);
+insert into tbl_mail_box (mail_box_id) values (102);
 insert into tbl_mail_box (mail_box_id) values (3);
 insert into tbl_mail_box (mail_box_id) values (4);
 insert into tbl_mail_box (mail_box_id) values (5);
@@ -98,3 +98,5 @@ insert into tbl_mail_box (mail_box_id) values (97);
 insert into tbl_mail_box (mail_box_id) values (98);
 insert into tbl_mail_box (mail_box_id) values (99);
 insert into tbl_mail_box (mail_box_id) values (100);
+insert into tbl_mail_box (mail_box_id) values (101);
+

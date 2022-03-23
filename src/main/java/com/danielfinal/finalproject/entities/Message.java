@@ -3,7 +3,6 @@ package com.danielfinal.finalproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -76,7 +75,19 @@ public class Message {
 //    TODO: this is just for the sender, make multiple for all the receivers as well
 
     @ManyToOne
-    @JoinColumn(name = "mailbox_id")
-    private Mailbox mailbox;
+    @JoinColumn(name = "sender_mailbox_id")
+    private Mailbox senderMailbox;
+
+    @ManyToOne
+    @JoinColumn(name = "primary_receptor_mailbox_id")
+    private Mailbox primaryReceptorMailbox;
+
+    @ManyToOne
+    @JoinColumn(name = "carbon_copy_mailbox_id")
+    private Mailbox carbonCopyMailbox;
+
+    @ManyToOne
+    @JoinColumn(name = "blind_carbon_copy_mailbox_id")
+    private Mailbox blindCarbonCopyMailbox;
 
 }

@@ -6,6 +6,7 @@ import com.danielfinal.finalproject.entities.Tag;
 import com.danielfinal.finalproject.messageattachment.ResponseFile;
 import com.danielfinal.finalproject.messageattachment.ResponseMessage;
 import com.danielfinal.finalproject.services.AttachmentService;
+import com.danielfinal.finalproject.services.MailboxService;
 import com.danielfinal.finalproject.services.MessageService;
 import com.danielfinal.finalproject.services.TagService;
 import lombok.AllArgsConstructor;
@@ -24,22 +25,23 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "api/v1/message")
 @AllArgsConstructor
-public class MessageController {
+public class MainController {
 
     private MessageService messageService;
     private AttachmentService attachmentService;
     private TagService tagService;
+    private MailboxService mailboxService;
 
     @PostMapping
     public String newMessage (@RequestBody Message message){
-        messageService.sendMessage(message);
+        mailboxService.sendMessage(message);
         return "Message sent";
     }
 
     @PostMapping(path = "/attachment/upload/{messageId}")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file")MultipartFile file, @PathVariable("messageId") long messageId){
 
-//        TODO: check that the user is the same as the one for the message, that way you can't attach to emails that are not yours
+        messageService.checkIfMessageByIdIsYoursByUsername(messageId);
 
         String message;
         try {
@@ -56,11 +58,9 @@ public class MessageController {
     @GetMapping(path = "/received")
     public List <String> getAllReceivedMessages(){
 
-        List <Message> messageList = messageService.getReceivedMessages();
+        List <Message> messageList = mailboxService.getReceivedMessagesByMailBox();
 
         List <String> info = new ArrayList<>();
-
-        messageService.getReceivedMessages();
 
         messageList.forEach(message ->
                 info.add("Message ID: "+message.getId()+
@@ -77,7 +77,7 @@ public class MessageController {
     @GetMapping(path = "/sent")
     public List <String> getAllSentMessages(){
 
-        List <Message> messageList = messageService.getSentMessages();
+        List <Message> messageList = mailboxService.getSentMessagesByMailBox();
 
         List <String> info = new ArrayList<>();
 
@@ -98,7 +98,7 @@ public class MessageController {
     @GetMapping(path = "/attachment/{messageId}")
     public ResponseEntity<List<ResponseFile>> getAttachmentsByReceivedEmail(@PathVariable("messageId") long messageId){
 
-//        TODO: check that the user is the same as the any of the message receptors, that way you can't open emails that are not yours
+        messageService.checkIfMessageByIdIsYoursByUsername(messageId);
 
         List<ResponseFile> files = attachmentService.getFilesByEmailId(messageId).map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
@@ -125,16 +125,15 @@ public class MessageController {
         @PostMapping(path = "/tag/new")
     public String createNewTag (@RequestBody Tag tag){
 
-//        TODO: check that only messages you're the recipient are tagged, if there are none, then send exception
-
         tagService.createNewTag(tag);
+
         return "Tag created successfully";
     }
 
     @PutMapping(path = "/tag/{messageId}")
     public String tagMessage (@RequestBody Tag tag, @PathVariable("messageId") long messageId){
 
-//        TODO: check that you can only tag messages you're the receiver
+        messageService.checkIfMessageByIdIsYoursByUsername(messageId);
 
         tagService.tagMessageWithExistingTag(tag, messageId);
 
@@ -144,8 +143,6 @@ public class MessageController {
 
     @GetMapping(path = "/tag/{tagName}")
     public List <String> getMessagesByTag (@PathVariable("tagName") String tagName){
-
-        //        TODO: check that only your messages with the tag you decided appear
 
         List<Message> messageList = tagService.getMessagesByTagName(tagName);
 
