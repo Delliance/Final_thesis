@@ -1,4 +1,4 @@
-WIP
+Completed
 
 Register new user: done
 
@@ -14,9 +14,9 @@ mailbox (all messages sent): done
 
 Tag message: done
 
-Testing: wip
+Testing: done (excluding attachment)
 
-Docker: wip
+Docker: done
 
 Database used: postgres
 

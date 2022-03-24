@@ -41,12 +41,12 @@ public class Message {
     @Column(
             name = "subject"
     )
-    private String subject = "No subject";
+    private String subject;
 
     @Column(
             name = "body"
     )
-    private String body = "empty message";
+    private String body;
 
     @Column(
             name = "primary_receptor",

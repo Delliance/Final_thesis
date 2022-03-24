@@ -122,7 +122,7 @@ public class MainController {
                 .body(attachment.getData());
     }
 
-        @PostMapping(path = "/tag/new")
+    @PostMapping(path = "/tag/new")
     public String createNewTag (@RequestBody Tag tag){
 
         tagService.createNewTag(tag);
